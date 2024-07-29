@@ -21,15 +21,6 @@ app.get('/chathistory', async(req, res) => {
     }
 })
 
-app.get('/products/:id', async(req, res) =>{
-    try {
-        const {id} = req.params;
-        const Chat = await Chat.findById(id);
-        res.status(200).json(Chat);
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
-})
 
 
 app.post('/chathistory', async(req, res) => {
@@ -43,38 +34,6 @@ app.post('/chathistory', async(req, res) => {
     }
 })
 
-// update a Chat
-app.put('/products/:id', async(req, res) => {
-    try {
-        const {id} = req.params;
-        const product = await Chat.findByIdAndUpdate(id, req.body);
-        // we cannot find any product in database
-        if(!product){
-            return res.status(404).json({message: `cannot find any product with ID ${id}`})
-        }
-        const updatedProduct = await Chat.findById(id);
-        res.status(200).json(updatedProduct);
-        
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
-})
-
-// delete a product
-
-app.delete('/products/:id', async(req, res) =>{
-    try {
-        const {id} = req.params;
-        const product = await Chat.findByIdAndDelete(id);
-        if(!product){
-            return res.status(404).json({message: `cannot find any product with ID ${id}`})
-        }
-        res.status(200).json(product);
-        
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
-})
 
 mongoose.set("strictQuery", false)
 mongoose.
